@@ -36,9 +36,9 @@ $res = mysql_query($query, $conn);
 	   </header>
 	    <div class="content-list" id="outer">
 	    	<div class="list-left" id="tab">
-	    		<li><a style="position: relative;">新品推荐<i class="num">8</i></a></li>
-	    		<li><a >主食</a></li>
-	    		<li class="current"><a>匠心烧味</a></li>
+	    		<li><a href="#new">新品推荐<i class="num">8</i></a></li>
+	    		<li><a href="#main">主食</a></li>
+	    		<li><a href="#shaowei">匠心烧味</a></li>
 	    		<li><a>港式点心</a></li>
 	    		<li><a>正宗可可奶盖</a></li>
 	    		<li><a>清新果茶</a></li>
@@ -57,6 +57,8 @@ $res = mysql_query($query, $conn);
 	    <!-- 桌子id和客人id不加入循环 -->
 	    <input name="cid" type="hidden" value=<?php echo $cid; ?> />
 	    <input name="tid" type="hidden" value=<?php echo $tid; ?> />
+	    <a name="new"></a>
+	    <h1>新品推荐</h1>
 <?php 
 
 $query = "call show_menu();";    //ÕâÑù¿ÉÄÜÓÐºÜ¶à±êÌâ°üº¬ÓÐÕâËÄ¸ö×ÖµÄÐÂÎÅ¶¼»áÏÔÊ¾³öÀ´. ´ó¼Ò¿ÉÒÔÌí¼Ó¶à¼¸ÌõÐÂÎÅÊÔÊÔ.»¹¿ÉÒÔÓÃOR »òAND ÏÞÖÆ¸ü¶à²éÑ¯Ìõ¼þ.
@@ -80,6 +82,7 @@ $price=$dbrow['price'];
 	<!-- mid和price -->
 	<input name=<?php echo $i."mid"; ?> type="hidden" value=<?php echo $mid; ?> />
 	<input name=<?php echo $i."price"; ?> type="hidden" value=<?php echo $price; ?> />
+	<input name=<?php echo $i."mname"; ?> type="hidden" value=<?php echo $mname; ?> />
 			    	<li>
 			    		<a href="detail.html"><img src=<?php echo "img/" . $mid .".jpg"; ?> class="list-pic" /></a>
 			    		<div class="shop-list-mid">
@@ -100,9 +103,11 @@ $price=$dbrow['price'];
 // end if
 }
 
-?>
-			    			    	
+?>		    	
 	            </ul>
+	           <a name="main"></label></a>	
+<h1>主食</h1>
+    	
 	    	</div>
 	    </div>
 	    <!--底部-->
