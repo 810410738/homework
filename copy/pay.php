@@ -29,7 +29,10 @@ mysql_query("set names utf8");
 // $tid=$_POST[tid];
 $tid=$_POST[tid];
 $cid=$_POST[cid];
-for($i=0;$i<3;$i++)
+$query = "select * from menu;";   
+$res = mysql_query($query, $conn) or die(mysql_error());
+$row = mysql_num_rows($res); 
+for($i=0;$i<$row;$i++)
 {
     $mid=$_POST[$i.mid];   
     $price=$_POST[$i.price];

@@ -36,39 +36,33 @@ $res = mysql_query($query, $conn);
 	   </header>
 	    <div class="content-list" id="outer">
 	    	<div class="list-left" id="tab">
-	    		<li><a href="#new">新品推荐<i class="num">8</i></a></li>
-	    		<li><a href="#main">主食</a></li>
-	    		<li><a href="#shaowei">匠心烧味</a></li>
-	    		<li><a>港式点心</a></li>
-	    		<li><a>正宗可可奶盖</a></li>
-	    		<li><a>清新果茶</a></li>
-	    		<li><a>招牌榴莲奶盖</a></li>
-	    		<li><a>部落奶盖系列</a></li>
-	    		<li><a>鲜榨果汁</a></li>
-	    		<li><a>创意特饮</a></li>
-	    		<li><a>纯吃茶</a></li>
-	    		<li><a>沙冰系列</a></li>
-	    		<li><a>热饮系列</a></li>
-	    		<li><a>小吃系列</a></li>
+	    		<li><a href="">主食</a></li>
+	    		<li><a href="#main">匠心粤菜</a></li>
+	    		<li><a href="#yuecai">港式点心</a></li>
+	    		<li><a href="#dianxin">甜品</a></li>
+	    		<li><a href="#tianpin">新品推荐</a></li>
+	    		
 	    	</div>
 	    	<div class="list-right" id="content">
-	    		<ul class="list-pro">
+	    	
 	    <form action="order.php" method="POST">
 	    <!-- 桌子id和客人id不加入循环 -->
 	    <input name="cid" type="hidden" value=<?php echo $cid; ?> />
 	    <input name="tid" type="hidden" value=<?php echo $tid; ?> />
-	    <a name="new"></a>
-	    <h1>新品推荐</h1>
+
+	    <a name="main"></a>
+	    <h1>主食</h1>
+	    <ul class="list-pro">
 <?php 
 
-$query = "call show_menu();";    //ÕâÑù¿ÉÄÜÓÐºÜ¶à±êÌâ°üº¬ÓÐÕâËÄ¸ö×ÖµÄÐÂÎÅ¶¼»áÏÔÊ¾³öÀ´. ´ó¼Ò¿ÉÒÔÌí¼Ó¶à¼¸ÌõÐÂÎÅÊÔÊÔ.»¹¿ÉÒÔÓÃOR »òAND ÏÞÖÆ¸ü¶à²éÑ¯Ìõ¼þ.
+$query = "select * from menu where kind='主食';";    //ÕâÑù¿ÉÄÜÓÐºÜ¶à±êÌâ°üº¬ÓÐÕâËÄ¸ö×ÖµÄÐÂÎÅ¶¼»áÏÔÊ¾³öÀ´. ´ó¼Ò¿ÉÒÔÌí¼Ó¶à¼¸ÌõÐÂÎÅÊÔÊÔ.»¹¿ÉÒÔÓÃOR »òAND ÏÞÖÆ¸ü¶à²éÑ¯Ìõ¼þ.
 // $query = "select * from menu;"; 
 $res = mysql_query($query, $conn) or die(mysql_error());
 $row = mysql_num_rows($res);    //Èç¹û²éÑ¯³É¹¦ÕâÀï·µ»ØÕæ·ñÔòÎª¼Ù
 if($row)
 {
 
-$i=0;
+$flag=0;
 for($i=0;$i<$row;$i++)            //ÕâÀïÓÃÒ»¸öFOR Óï¾ä²éÑ¯ÏÔÊ¾¶àÌõ½á¹û
 { 
 $dbrow=mysql_fetch_array($res);
@@ -77,12 +71,11 @@ $mname=$dbrow['mname'];
 $price=$dbrow['price']; 
 
 
-
 ?>
 	<!-- mid和price -->
-	<input name=<?php echo $i."mid"; ?> type="hidden" value=<?php echo $mid; ?> />
-	<input name=<?php echo $i."price"; ?> type="hidden" value=<?php echo $price; ?> />
-	<input name=<?php echo $i."mname"; ?> type="hidden" value=<?php echo $mname; ?> />
+	<input name=<?php echo $flag."mid"; ?> type="hidden" value=<?php echo $mid; ?> />
+	<input name=<?php echo $flag."price"; ?> type="hidden" value=<?php echo $price; ?> />
+	<input name=<?php echo $flag."mname"; ?> type="hidden" value=<?php echo $mname; ?> />
 			    	<li>
 			    		<a href="detail.html"><img src=<?php echo "img/" . $mid .".jpg"; ?> class="list-pic" /></a>
 			    		<div class="shop-list-mid">
@@ -92,24 +85,176 @@ $price=$dbrow['price'];
 		                <div class="list-cart">
 			                <div class="d-stock ">
 					                <a class="decrease">-</a>
-					                <input id="num" readonly="" class="text_box" name=<?php echo $i."quantity"; ?> type="text" value="0">
+					                <input id="num" readonly="" class="text_box" name=<?php echo $flag."quantity"; ?> type="text" value="0">
 					                <a class="increase">+</a>
 			                </div>
 		                </div> 
 			    	</li>
 <?php  
 // end for
+$flag++;
 }
 // end if
 }
 
 ?>		    	
-	            </ul>
-	           <a name="main"></label></a>	
-<h1>主食</h1>
-    	
+</ul>
+
+
+<a name="yuecai"></label></a>	
+<h1>匠心粤菜</h1>
+    <ul class="list-pro">
+<?php 
+
+$query = "select * from menu where kind='匠心粤菜';";    //ÕâÑù¿ÉÄÜÓÐºÜ¶à±êÌâ°üº¬ÓÐÕâËÄ¸ö×ÖµÄÐÂÎÅ¶¼»áÏÔÊ¾³öÀ´. ´ó¼Ò¿ÉÒÔÌí¼Ó¶à¼¸ÌõÐÂÎÅÊÔÊÔ.»¹¿ÉÒÔÓÃOR »òAND ÏÞÖÆ¸ü¶à²éÑ¯Ìõ¼þ.
+// $query = "select * from menu;"; 
+$res = mysql_query($query, $conn) or die(mysql_error());
+$row = mysql_num_rows($res);    //Èç¹û²éÑ¯³É¹¦ÕâÀï·µ»ØÕæ·ñÔòÎª¼Ù
+if($row)
+{
+
+for($i=0;$i<$row;$i++)            //ÕâÀïÓÃÒ»¸öFOR Óï¾ä²éÑ¯ÏÔÊ¾¶àÌõ½á¹û
+{ 
+$dbrow=mysql_fetch_array($res);
+$mid=$dbrow['mid']; 
+$mname=$dbrow['mname']; 
+$price=$dbrow['price']; 
+
+
+?>
+	<!-- mid和price -->
+	<input name=<?php echo $flag."mid"; ?> type="hidden" value=<?php echo $mid; ?> />
+	<input name=<?php echo $flag."price"; ?> type="hidden" value=<?php echo $price; ?> />
+	<input name=<?php echo $flag."mname"; ?> type="hidden" value=<?php echo $mname; ?> />
+			    	<li>
+			    		<a href="detail.html"><img src=<?php echo "img/" . $mid .".jpg"; ?> class="list-pic" /></a>
+			    		<div class="shop-list-mid">
+		                	<div class="tit"><a href="detail.html"><?php echo $mname; ?></a></div>
+		                	<div class="am-gallery-desc">￥<?php echo $price; ?></div>
+		                </div>
+		                <div class="list-cart">
+			                <div class="d-stock ">
+					                <a class="decrease">-</a>
+					                <input id="num" readonly="" class="text_box" name=<?php echo $flag."quantity"; ?> type="text" value="0">
+					                <a class="increase">+</a>
+			                </div>
+		                </div> 
+			    	</li>
+<?php  
+// end for
+$flag++;
+}
+// end if
+}
+
+?>		    	
+</ul> 	
+
+
+<a name="dianxin"></label></a>	
+<h1>港式点心</h1>
+    <ul class="list-pro">
+<?php 
+
+$query = "select * from menu where kind='港式点心';";    //ÕâÑù¿ÉÄÜÓÐºÜ¶à±êÌâ°üº¬ÓÐÕâËÄ¸ö×ÖµÄÐÂÎÅ¶¼»áÏÔÊ¾³öÀ´. ´ó¼Ò¿ÉÒÔÌí¼Ó¶à¼¸ÌõÐÂÎÅÊÔÊÔ.»¹¿ÉÒÔÓÃOR »òAND ÏÞÖÆ¸ü¶à²éÑ¯Ìõ¼þ.
+// $query = "select * from menu;"; 
+$res = mysql_query($query, $conn) or die(mysql_error());
+$row = mysql_num_rows($res);    //Èç¹û²éÑ¯³É¹¦ÕâÀï·µ»ØÕæ·ñÔòÎª¼Ù
+if($row)
+{
+
+for($i=0;$i<$row;$i++)            //ÕâÀïÓÃÒ»¸öFOR Óï¾ä²éÑ¯ÏÔÊ¾¶àÌõ½á¹û
+{ 
+$dbrow=mysql_fetch_array($res);
+$mid=$dbrow['mid']; 
+$mname=$dbrow['mname']; 
+$price=$dbrow['price']; 
+
+
+?>
+	<!-- mid和price -->
+	<input name=<?php echo $flag."mid"; ?> type="hidden" value=<?php echo $mid; ?> />
+	<input name=<?php echo $flag."price"; ?> type="hidden" value=<?php echo $price; ?> />
+	<input name=<?php echo $flag."mname"; ?> type="hidden" value=<?php echo $mname; ?> />
+			    	<li>
+			    		<a href="detail.html"><img src=<?php echo "img/" . $mid .".jpg"; ?> class="list-pic" /></a>
+			    		<div class="shop-list-mid">
+		                	<div class="tit"><a href="detail.html"><?php echo $mname; ?></a></div>
+		                	<div class="am-gallery-desc">￥<?php echo $price; ?></div>
+		                </div>
+		                <div class="list-cart">
+			                <div class="d-stock ">
+					                <a class="decrease">-</a>
+					                <input id="num" readonly="" class="text_box" name=<?php echo $flag."quantity"; ?> type="text" value="0">
+					                <a class="increase">+</a>
+			                </div>
+		                </div> 
+			    	</li>
+<?php  
+// end for
+$flag++;
+}
+// end if
+}
+
+?>		    	
+</ul> 
+
+
+
+<a name="tianpin"></label></a>	
+<h1>甜品</h1>
+    <ul class="list-pro">
+<?php 
+
+$query = "select * from menu where kind='甜品';";    //ÕâÑù¿ÉÄÜÓÐºÜ¶à±êÌâ°üº¬ÓÐÕâËÄ¸ö×ÖµÄÐÂÎÅ¶¼»áÏÔÊ¾³öÀ´. ´ó¼Ò¿ÉÒÔÌí¼Ó¶à¼¸ÌõÐÂÎÅÊÔÊÔ.»¹¿ÉÒÔÓÃOR »òAND ÏÞÖÆ¸ü¶à²éÑ¯Ìõ¼þ.
+// $query = "select * from menu;"; 
+$res = mysql_query($query, $conn) or die(mysql_error());
+$row = mysql_num_rows($res);    //Èç¹û²éÑ¯³É¹¦ÕâÀï·µ»ØÕæ·ñÔòÎª¼Ù
+if($row)
+{
+
+for($i=0;$i<$row;$i++)            //ÕâÀïÓÃÒ»¸öFOR Óï¾ä²éÑ¯ÏÔÊ¾¶àÌõ½á¹û
+{ 
+$dbrow=mysql_fetch_array($res);
+$mid=$dbrow['mid']; 
+$mname=$dbrow['mname']; 
+$price=$dbrow['price']; 
+
+
+?>
+	<!-- mid和price -->
+	<input name=<?php echo $flag."mid"; ?> type="hidden" value=<?php echo $mid; ?> />
+	<input name=<?php echo $flag."price"; ?> type="hidden" value=<?php echo $price; ?> />
+	<input name=<?php echo $flag."mname"; ?> type="hidden" value=<?php echo $mname; ?> />
+			    	<li>
+			    		<a href="detail.html"><img src=<?php echo "img/" . $mid .".jpg"; ?> class="list-pic" /></a>
+			    		<div class="shop-list-mid">
+		                	<div class="tit"><a href="detail.html"><?php echo $mname; ?></a></div>
+		                	<div class="am-gallery-desc">￥<?php echo $price; ?></div>
+		                </div>
+		                <div class="list-cart">
+			                <div class="d-stock ">
+					                <a class="decrease">-</a>
+					                <input id="num" readonly="" class="text_box" name=<?php echo $flag."quantity"; ?> type="text" value="0">
+					                <a class="increase">+</a>
+			                </div>
+		                </div> 
+			    	</li>
+<?php  
+// end for
+$flag++;
+}
+// end if
+}
+
+?>		    	
+</ul> 
+
+
 	    	</div>
 	    </div>
+
 	    <!--底部-->
  <div style="height: 100px;"></div>
  <div class="fix-bot">
