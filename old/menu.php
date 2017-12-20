@@ -37,9 +37,7 @@ $res = mysql_query($query, $conn) or die(mysql_error());
 $row = mysql_num_rows($res);    //Èç¹û²éÑ¯³É¹¦ÕâÀï·µ»ØÕæ·ñÔòÎª¼Ù
 if($row)
 {
-?>
 
-<?php
 $i=0;
 for($i=0;$i<$row;$i++)            //ÕâÀïÓÃÒ»¸öFOR Óï¾ä²éÑ¯ÏÔÊ¾¶àÌõ½á¹û
 { 
