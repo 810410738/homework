@@ -62,16 +62,17 @@
 			
 
 			<!-- Start Sign In Form -->
-			<form action="#" class="fh5co-form animate-box" data-animate-effect="fadeInRight" style="margin-top:9em">
+			<form action="../old/choose_table.php" class="fh5co-form animate-box" data-animate-effect="fadeInRight" style="margin-top:9em" method="POST">
 				<h1>欢迎光临本餐厅</h1>
+				<a href="../admin/login.html"><label>是管理员？</label></a>
 				<br>
 				<div class="form-group">
 					<span>用餐人数</span>
-					<input type="text" class="form-control"  placeholder="请输入用餐人数" autocomplete="off" name="count">
+					<input type="number" required class="form-control"  placeholder="请输入用餐人数" autocomplete="off" name="count">
 				</div>
 				<div class="form-group">
 					<span>手机号码</span>
-					<input type="phone" class="form-control"  placeholder="请输入你的手机号码" autocomplete="off" name="phone">
+					<input type="text" required  class="form-control"  placeholder="请输入你的手机号码" autocomplete="off" name="phone">
 				</div>
 				<!-- <div class="form-group">
 					<p>Not registered? <a href="sign-up.html">Sign Up</a> | <a href="forgot.html">Forgot Password?</a></p>

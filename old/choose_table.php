@@ -48,7 +48,6 @@ echo "insert fail !";
 
 <!-- 查询所有dinner_table信息 -->
 <table class="table">
-<form action="save_edit_purchases.php" method="post">
 
 <?php 
 error_reporting(0); 
@@ -76,7 +75,7 @@ $flag++;
 		if ($tstatus==1)
 		{
 			echo "
-			<td><a href='menu.php?cid=" . $cid  . "&tid=" . $tid . "'> 
+			<td><a href='../copy/index.php?cid=" . $cid  . "&tid=" . $tid . "'> 
 				<div  class='weui-media-box weui-media-box_appmsg'>
                     <div class='weui-media-box__hd'>
                         <img class='weui-media-box__thumb' src='img/desk.jpg' >
@@ -112,8 +111,7 @@ $flag++;
 		}
 }
 ?>
-</form>
 </table>
-<a href="/database/table.html" style="text-decoration: none" target="_parent"> 返回
+<a href="" style="text-decoration: none" target="_parent"> 返回
 </body>
 </html>
