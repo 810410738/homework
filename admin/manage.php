@@ -282,10 +282,11 @@ $username= $_POST[username];
         近期活动
         <small>正在进行中的活动</small>
       </h1>
-      <ol class="breadcrumb">
+
+     <!--  <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
         <li class="active">Here</li>
-      </ol>
+      </ol> -->
     </section>
 
     <!-- Main content -->
@@ -327,6 +328,8 @@ $username= $_POST[username];
           </div>
         </div>
       </div>
+
+      
     </div>
     </section>
     <!-- /.content -->
