@@ -12,16 +12,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
   <link rel="stylesheet" href="../../css/bootstrap.min.css">
-  <!-- Font Awesome -->
-  <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">-->
-  <!-- Ionicons -->
-  <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">-->
-  <!-- Theme style -->
+  <link rel="stylesheet" type="text/css" href="css/base.css">
+<link rel="stylesheet" type="text/css" href="css/changelists.css">
+ 
   <link rel="stylesheet" href="../../css/AdminLTE.min.css">
-  <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
-        page. However, you can choose any other skin. Make sure you
-        apply the skin class to the body tag so the changes take effect.
-  -->
   <link rel="stylesheet" href="../../js/vendor/iCheck/square/blue.css">
 
   <link rel="stylesheet" href="../../css/skin-blue.min.css">
@@ -279,8 +273,8 @@ $username= $_POST[username];
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        近期活动
-        <small>正在进行中的活动</small>
+        菜单
+        <small>列出所有菜</small>
       </h1>
 
      <!--  <ol class="breadcrumb">
@@ -292,44 +286,64 @@ $username= $_POST[username];
     <!-- Main content -->
     <section class="content">
 
+<!-- add table.html -->
     <div class="row">
-      <div class="col-md-6" data-id="0001">
-        <a href="statistics.html?gameId=0001">
-          <div class="box box-solid box-info">
-            <div class="box-header with-border">
-              <h3 class="box-title">校长杯</h3>
-              <div class="box-tools pull-right">
-                <!--<span class="label label-primary">Label</span>-->
-              </div>
-            </div>
-            <div class="box-body">
-              这里放置比赛信息
-            </div>
-            <div class="box-footer">
-              截止时间：<time>2017/6/6</time>
-            </div>
-          </div>
-        </a>
-      </div>
-
-      <div class="col-md-6">
-        <div class="box box-solid box-primary">
-          <div class="box-header with-border">
-            <h3 class="box-title">八院杯</h3>
-            <div class="box-tools pull-right">
-              <!--<span class="label label-primary">Label</span>-->
-            </div>
-          </div>
-          <div class="box-body">
-            这里放置比赛信息
-          </div>
-          <div class="box-footer">
-            box-footer
-          </div>
-        </div>
-      </div>
-
+                <!-- Content -->
+    <div id="content" class="flex">
       
+  <div id="content-main">
+      
+    <div class="module" id="changelist">
+
+      <form id="changelist-form" method="post" novalidate=""><input type="hidden" name="" value="">
+      
+<div class="results">
+  <table id="result_list">
+  <thead>
+
+<tr>
+<!-- checkbox -->
+<th scope="col" class="action-checkbox-column">
+   <div class="text"><span><input type="checkbox" id="action-toggle"></span></div>
+   <div class="clear"></div>
+</th>
+
+<!-- 循环生成表头 -->
+<th scope="col" class="sortable column-id">
+   <div class="text"><a href="">Id</a></div>
+   <div class="clear"></div>
+</th>
+
+</tr>
+</thead>
+
+
+<tbody>
+
+<!-- 循环生成行 -->
+<tr class="row1">
+<td class="action-checkbox">
+<input type="checkbox" name="_selected_action" value="719" class="action-select"></td>
+<th class="field-id"><a href="http://39.108.181.169/admin/szupingxie/zhaoxinbaoming/719/change/?_changelist_filters=o%3D4.-3.-2.8.7.6.5">719</a></th><td class="field-name">李璐</td><td class="field-sex">女</td><td class="field-college">人文学院                      </td><td class="field-phone">15889519517</td><td class="field-stu_no">2017012033</td><td class="field-wechat">Smtprincess </td><td class="field-time nowrap">Nov. 12, 2017, 5:09 p.m.</td></tr>
+
+<tr class="row2">
+<td class="action-checkbox">
+<input type="checkbox" name="_selected_action" value="719" class="action-select"></td>
+<th class="field-id"><a href="http://39.108.181.169/admin/szupingxie/zhaoxinbaoming/719/change/?_changelist_filters=o%3D4.-3.-2.8.7.6.5">719</a></th><td class="field-name">李璐</td><td class="field-sex">女</td><td class="field-college">人文学院                      </td><td class="field-phone">15889519517</td><td class="field-stu_no">2017012033</td><td class="field-wechat">Smtprincess </td><td class="field-time nowrap">Nov. 12, 2017, 5:09 p.m.</td></tr>
+
+</tbody>
+</table>
+</div>
+
+      </form>
+    </div>
+  </div>
+    
+    </div>
+    <!-- END Content -->
+      </div>
+
+
     </div>
     </section>
     <!-- /.content -->
