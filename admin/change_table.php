@@ -1,3 +1,4 @@
+a@@ -0,0 +1,365 @@
 <!DOCTYPE html>
 <!--
 This is a starter template page. Use this page to start your new project from
@@ -12,23 +13,35 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
   <link rel="stylesheet" href="../../css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="css/base.css">
-<link rel="stylesheet" type="text/css" href="css/changelists.css">
- 
+  <!-- Font Awesome -->
+  <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">-->
+  <!-- Ionicons -->
+  <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">-->
+  <!-- Theme style -->
   <link rel="stylesheet" href="../../css/AdminLTE.min.css">
+  <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
+        page. However, you can choose any other skin. Make sure you
+        apply the skin class to the body tag so the changes take effect.
+  -->
   <link rel="stylesheet" href="../../js/vendor/iCheck/square/blue.css">
 
   <link rel="stylesheet" href="../../css/skin-blue.min.css">
-
+  <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">  
+   
 </head>
-
-<body class="hold-transition skin-blue sidebar-mini">
+<script>
+function warning()
+{
+ alert("该桌子已经有客人了，请选择其他桌子，谢谢！"); 
+} 
+</script>
 <?php
 error_reporting(0); 
 header('Content-Type:text/html; charset= utf-8');
 include ("conn.php");
 $username= $_POST[username];
 ?>
+<body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
 
   <!-- Main Header -->
@@ -250,10 +263,10 @@ $username= $_POST[username];
       <ul class="sidebar-menu">
         <li class="header">HEADER</li>
         <!-- Optionally, you can add icons to the links -->
-        <li class="active"><a href="manage.php"><i class="fa fa-link"></i> <span>查看菜品/库存</span></a></li>
-        <li ><a href="change_table.php"><i class="fa fa-link"></i> <span>添加新菜品/修改库存</span></a></li>
-        <li>
-          <a href="change_table.php"><i class="fa fa-link"></i> <span>餐桌管理</span>
+        <li ><a href="manage.php"><i class="fa fa-link"></i> <span>查看菜品/库存</span></a></li>
+        <li ><a href="change_menu.php"><i class="fa fa-link"></i> <span>添加新菜品/修改库存</span></a></li>
+        <li class="active">
+          <a href="#"><i class="fa fa-link"></i> <span>餐桌管理</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -271,7 +284,7 @@ $username= $_POST[username];
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        更改库存
+        管理餐桌
         <small></small>
       </h1>
       <ol class="breadcrumb">
@@ -284,80 +297,85 @@ $username= $_POST[username];
     <section class="content">
 
     <div class="row">
-    
+      
 
-    <div id="content" class="flex">
-    <div id="content-main">
-    <div class="module" id="changelist">
-    <form id="changelist-form" method="post" novalidate=""><input type="hidden" name="" value="">
-    <div class="results">
-
-<table id="result_list">
-    <thead>
-    <tr>
-    <th scope="col" class="action-checkbox-column">
-       <div class="text"></div>
-       <div class="clear"></div>
-    </th>
-    <th scope="col" class="sortable column-id">
-       <div class="text"><a href="">菜编号</a></div>
-       <div class="clear"></div>
-    </th>
-    <th scope="col" class="sortable column-id">
-       <div class="text"><a href="">菜名</a></div>
-       <div class="clear"></div>
-    </th>
-    <th scope="col" class="sortable column-id">
-       <div class="text"><a href="">价格</a></div>
-       <div class="clear"></div>
-    </th>
-    <th scope="col" class="sortable column-id">
-       <div class="text"><a href="">库存</a></div>
-       <div class="clear"></div>
-    </th>
-    </tr>
-    </thead>
-
-<tbody>
-<?php
+      <?php
 error_reporting(0); 
+header('Content-Type:text/html; charset= utf-8');
 include ("conn.php");
 mysql_query("set names utf8");
-$query = "select * from menu ;";    
+?>
+<!-- 查询所有dinner_table信息 -->
+<table class="table">
+
+<?php 
+error_reporting(0); 
+include ("conn.php");
+//mysql_query("set names utf-8");
+// $query = "select * from purchases";    //ÕâÑù¿ÉÄÜÓÐºÜ¶à±êÌâ°üº¬ÓÐÕâËÄ¸ö×ÖµÄÐÂÎÅ¶¼»áÏÔÊ¾³öÀ´. ´ó¼Ò¿ÉÒÔÌí¼Ó¶à¼¸ÌõÐÂÎÅÊÔÊÔ.»¹¿ÉÒÔÓÃOR »òAND ÏÞÖÆ¸ü¶à²éÑ¯Ìõ¼þ.
+$query = "select * from dinner_table";
 $res = mysql_query($query, $conn) or die(mysql_error());
-$row = mysql_num_rows($res);   
-for($i=0;$i<$row;$i++)           
+$row = mysql_num_rows($res);    //Èç¹û²éÑ¯³É¹¦ÕâÀï·µ»ØÕæ·ñÔòÎª¼Ù
+
+//要一行显示3个桌子
+$flag =0;
+for($i=0;$i<$row;$i++)            //ÕâÀïÓÃÒ»¸öFOR Óï¾ä²éÑ¯ÏÔÊ¾¶àÌõ½á¹û
 { 
-  if(($i)%2==0)
-    $j=2;
-  else
-    $j=1;
 $dbrow=mysql_fetch_array($res);
-$mid=$dbrow['mid']; 
-$mname=$dbrow['mname']; 
-$price=$dbrow['price']; 
-$qoh=$dbrow['qoh']; 
-  ?>
-<tr class=<?php echo row.$j ?>>
-<td class="action-checkbox"></td>
-<td class="field-name"><?php echo $mid ?></td>
-<td class="field-sex"><?php echo $mname ?></td>
-<td class="field-college"><?php echo $price?>                      </td>
-<td class="field-phone"><?php echo $qoh?></td>
-<?php
+$tid=$dbrow['tid']; 
+$tstatus=$dbrow['tstatus'];
+$tsize=$dbrow['tsize'];
+if($flag==0){
+  echo "<tr>";
+}
+$flag++;
+?>
+    <?php 
+    if ($tstatus==1)
+    {
+      echo "
+      <td>
+        <div  class='weui-media-box weui-media-box_appmsg'>
+                    <div class='weui-media-box__hd'>
+                        <img class='weui-media-box__thumb' src='img/desk.jpg' >
+                    </div>
+                    
+                    <div class='weui-media-box__bd'>
+                        <h4 class='weui-media-box__title'>座位数:" . $tsize . "</h4>
+                        <p class='weui-media-box__desc'>空闲</p>
+                    </div>
+                    <div class='weui-media-box__bd'>
+                      <a href='save_table.php?cid=" . $cid  . "&tid=" . $tid . "'> 
+
+                      </a>
+                    </div>
+                </div>
+             </td>
+               ";
+    }
+    else
+    {
+      echo "
+      <td>
+        <div  class='weui-media-box weui-media-box_appmsg'>
+                    <div class='weui-media-box__hd'>
+                        <img onclick='warning() class='weui-media-box__thumb' src='img/desk_red.jpg' >
+                    </div>
+                    <div class='weui-media-box__bd'>
+                        <h4 class='weui-media-box__title'>座位数:<span>" . $tsize . "</span></h4>
+                        <p class='weui-media-box__desc'>已被占用</p>
+                    </div>
+                </div>
+             </td>
+               ";
+    }
+    if($flag==3){
+      echo "</tr>";
+      $flag=0;
+    }
 }
 ?>
-</tbody>
 </table>
-</div>
-      </form>
-    </div>
-  </div>
-    
-    </div>
-    <!-- END Content -->
-      </div>
-
 
       
     </div>

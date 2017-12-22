@@ -1,3 +1,4 @@
+a@@ -0,0 +1,365 @@
 <!DOCTYPE html>
 <!--
 This is a starter template page. Use this page to start your new project from
@@ -12,23 +13,28 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
   <link rel="stylesheet" href="../../css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="css/base.css">
-<link rel="stylesheet" type="text/css" href="css/changelists.css">
- 
+  <!-- Font Awesome -->
+  <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">-->
+  <!-- Ionicons -->
+  <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">-->
+  <!-- Theme style -->
   <link rel="stylesheet" href="../../css/AdminLTE.min.css">
+  <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
+        page. However, you can choose any other skin. Make sure you
+        apply the skin class to the body tag so the changes take effect.
+  -->
   <link rel="stylesheet" href="../../js/vendor/iCheck/square/blue.css">
 
   <link rel="stylesheet" href="../../css/skin-blue.min.css">
 
 </head>
-
-<body class="hold-transition skin-blue sidebar-mini">
 <?php
 error_reporting(0); 
 header('Content-Type:text/html; charset= utf-8');
 include ("conn.php");
 $username= $_POST[username];
 ?>
+<body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
 
   <!-- Main Header -->
@@ -250,8 +256,8 @@ $username= $_POST[username];
       <ul class="sidebar-menu">
         <li class="header">HEADER</li>
         <!-- Optionally, you can add icons to the links -->
-        <li class="active"><a href="manage.php"><i class="fa fa-link"></i> <span>查看菜品/库存</span></a></li>
-        <li ><a href="change_table.php"><i class="fa fa-link"></i> <span>添加新菜品/修改库存</span></a></li>
+        <li ><a href="manage.php"><i class="fa fa-link"></i> <span>查看菜品/库存</span></a></li>
+        <li class="active"><a href="change_menu.php"><i class="fa fa-link"></i> <span>添加新菜品/修改库存</span></a></li>
         <li>
           <a href="change_table.php"><i class="fa fa-link"></i> <span>餐桌管理</span>
             <span class="pull-right-container">
@@ -270,94 +276,112 @@ $username= $_POST[username];
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <h1>
-        更改库存
+    <?php
+    error_reporting(0); 
+    header('Content-Type:text/html; charset= utf-8');
+    include ("conn.php");
+    mysql_query("set names utf8");
+
+    $mid=$_POST[mid];  
+    $mname=$_POST[mname];  
+    $price=$_POST[price];
+    $qoh=$_POST[qoh];
+
+
+
+   
+
+    if(!empty($_POST[submit1]))
+    {
+    
+        $sql = "select * from menu where mid='$mid' ; ";
+        $result = @mysql_query($sql,$conn);  
+        $row = mysql_num_rows($result); 
+        if($row==0)
+        {
+        $sql = "INSERT INTO menu (mid,mname,price,qoh) VALUES ('$mid','$mname','$price','$qoh') ;";
+        $result = @mysql_query($sql,$conn);  
+        ?>
+         <h1>
+        添加菜式成功
         <small></small>
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
-        <li class="active">Here</li>
-      </ol>
+        </h1>
+        <?php
+        }
+        else
+        {
+          ?>
+         <h1>
+        该菜式已经存在！
+        <small></small>
+        </h1>
+        <?php
+        }
+    }
+    else if(!empty($_POST[submit2]))
+    {
+        $sql = "select * from menu where mid='$mid' ; ";
+        $result = @mysql_query($sql,$conn);  
+        $row = mysql_num_rows($result); 
+        if($row>0)
+        {
+        $sql = "update menu set qoh='$qoh' where mid='$mid' ;";
+        $result = @mysql_query($sql,$conn);  
+        ?>
+        <h1>
+        修改库存成功
+        <small></small>
+        </h1>
+        <?php
+        }
+        else
+        {
+           ?>
+         <h1>
+        不存在该菜式！
+        <small></small>
+        </h1>
+        <?php
+        }
+    }
+    else if(!empty($_POST[submit3]))
+    {
+        $sql = "select * from menu where mid='$mid' ; ";
+        $result = @mysql_query($sql,$conn);  
+        $row = mysql_num_rows($result); 
+        if($row>0)
+        {
+        $sql = "delete from menu where mid='$mid' ;";
+        $result = @mysql_query($sql,$conn);  
+        ?>
+        <h1>
+        删除菜式成功
+        <small></small>
+        </h1>
+        <?php
+        }
+        else
+        {
+           ?>
+         <h1>
+        不存在该菜式！
+        <small></small>
+        </h1>
+        <?php
+        }
+    }
+    ?>
+
+     
+      
     </section>
 
     <!-- Main content -->
     <section class="content">
 
     <div class="row">
+      
     
-
-    <div id="content" class="flex">
-    <div id="content-main">
-    <div class="module" id="changelist">
-    <form id="changelist-form" method="post" novalidate=""><input type="hidden" name="" value="">
-    <div class="results">
-
-<table id="result_list">
-    <thead>
-    <tr>
-    <th scope="col" class="action-checkbox-column">
-       <div class="text"></div>
-       <div class="clear"></div>
-    </th>
-    <th scope="col" class="sortable column-id">
-       <div class="text"><a href="">菜编号</a></div>
-       <div class="clear"></div>
-    </th>
-    <th scope="col" class="sortable column-id">
-       <div class="text"><a href="">菜名</a></div>
-       <div class="clear"></div>
-    </th>
-    <th scope="col" class="sortable column-id">
-       <div class="text"><a href="">价格</a></div>
-       <div class="clear"></div>
-    </th>
-    <th scope="col" class="sortable column-id">
-       <div class="text"><a href="">库存</a></div>
-       <div class="clear"></div>
-    </th>
-    </tr>
-    </thead>
-
-<tbody>
-<?php
-error_reporting(0); 
-include ("conn.php");
-mysql_query("set names utf8");
-$query = "select * from menu ;";    
-$res = mysql_query($query, $conn) or die(mysql_error());
-$row = mysql_num_rows($res);   
-for($i=0;$i<$row;$i++)           
-{ 
-  if(($i)%2==0)
-    $j=2;
-  else
-    $j=1;
-$dbrow=mysql_fetch_array($res);
-$mid=$dbrow['mid']; 
-$mname=$dbrow['mname']; 
-$price=$dbrow['price']; 
-$qoh=$dbrow['qoh']; 
-  ?>
-<tr class=<?php echo row.$j ?>>
-<td class="action-checkbox"></td>
-<td class="field-name"><?php echo $mid ?></td>
-<td class="field-sex"><?php echo $mname ?></td>
-<td class="field-college"><?php echo $price?>                      </td>
-<td class="field-phone"><?php echo $qoh?></td>
-<?php
-}
-?>
-</tbody>
-</table>
-</div>
-      </form>
-    </div>
-  </div>
-    
-    </div>
-    <!-- END Content -->
-      </div>
-
 
       
     </div>

@@ -12,23 +12,35 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
   <link rel="stylesheet" href="../../css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="css/base.css">
-<link rel="stylesheet" type="text/css" href="css/changelists.css">
- 
+  <!-- Font Awesome -->
+  <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">-->
+  <!-- Ionicons -->
+  <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">-->
+  <!-- Theme style -->
   <link rel="stylesheet" href="../../css/AdminLTE.min.css">
+  <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
+        page. However, you can choose any other skin. Make sure you
+        apply the skin class to the body tag so the changes take effect.
+  -->
   <link rel="stylesheet" href="../../js/vendor/iCheck/square/blue.css">
 
   <link rel="stylesheet" href="../../css/skin-blue.min.css">
-
+  <script type="text/javascript">
+    function judge(){
+      if(){
+        
+      }
+      alert("fuck!");
+    }
+  </script>
 </head>
-
-<body class="hold-transition skin-blue sidebar-mini">
 <?php
 error_reporting(0); 
 header('Content-Type:text/html; charset= utf-8');
 include ("conn.php");
 $username= $_POST[username];
 ?>
+<body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
 
   <!-- Main Header -->
@@ -39,7 +51,7 @@ $username= $_POST[username];
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>LT</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg">丹丹<b>餐厅</b></span>
+      <span class="logo-lg">餐厅<b>管理</b></span>
     </a>
 
     <!-- Header Navbar -->
@@ -235,7 +247,7 @@ $username= $_POST[username];
       </div>
 
       <!-- search form (Optional) -->
-      <form action="#" method="get" class="sidebar-form">
+     <!--  <form action="#" method="get" class="sidebar-form">
         <div class="input-group">
           <input type="text" name="q" class="form-control" placeholder="Search...">
               <span class="input-group-btn">
@@ -243,15 +255,15 @@ $username= $_POST[username];
                 </button>
               </span>
         </div>
-      </form>
+      </form> -->
       <!-- /.search form -->
 
       <!-- Sidebar Menu -->
       <ul class="sidebar-menu">
-        <li class="header">HEADER</li>
+        <li class="header">管理菜单</li>
         <!-- Optionally, you can add icons to the links -->
-        <li class="active"><a href="manage.php"><i class="fa fa-link"></i> <span>查看菜品/库存</span></a></li>
-        <li ><a href="change_table.php"><i class="fa fa-link"></i> <span>添加新菜品/修改库存</span></a></li>
+        <li ><a href="manage.php"><i class="fa fa-link"></i> <span>查看菜品/库存</span></a></li>
+        <li class="active"><a href="#"><i class="fa fa-link"></i> <span>添加新菜品/修改库存</span></a></li>
         <li>
           <a href="change_table.php"><i class="fa fa-link"></i> <span>餐桌管理</span>
             <span class="pull-right-container">
@@ -272,91 +284,53 @@ $username= $_POST[username];
     <section class="content-header">
       <h1>
         更改库存
-        <small></small>
+        <small>可添加菜式</small>
       </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
-        <li class="active">Here</li>
-      </ol>
+     
     </section>
 
     <!-- Main content -->
     <section class="content">
 
     <div class="row">
-    
+      
+    <form action="save_menu.php" method="post">
+<table  class="table">
+<tr>
+<td >菜式编号</td>
+<td ><input  required type="text" name="mid" size="20"/></td>
+</tr>
 
-    <div id="content" class="flex">
-    <div id="content-main">
-    <div class="module" id="changelist">
-    <form id="changelist-form" method="post" novalidate=""><input type="hidden" name="" value="">
-    <div class="results">
+<tr>
+<td >菜名</td>
+<td ><input required type="text" name="mname" size="20"/></td>
+</tr>
 
-<table id="result_list">
-    <thead>
-    <tr>
-    <th scope="col" class="action-checkbox-column">
-       <div class="text"></div>
-       <div class="clear"></div>
-    </th>
-    <th scope="col" class="sortable column-id">
-       <div class="text"><a href="">菜编号</a></div>
-       <div class="clear"></div>
-    </th>
-    <th scope="col" class="sortable column-id">
-       <div class="text"><a href="">菜名</a></div>
-       <div class="clear"></div>
-    </th>
-    <th scope="col" class="sortable column-id">
-       <div class="text"><a href="">价格</a></div>
-       <div class="clear"></div>
-    </th>
-    <th scope="col" class="sortable column-id">
-       <div class="text"><a href="">库存</a></div>
-       <div class="clear"></div>
-    </th>
-    </tr>
-    </thead>
+<tr>
+<td >价格</td>
+<td ><input required type="text" name="price" size="20"/></td>
+</tr>
 
-<tbody>
-<?php
-error_reporting(0); 
-include ("conn.php");
-mysql_query("set names utf8");
-$query = "select * from menu ;";    
-$res = mysql_query($query, $conn) or die(mysql_error());
-$row = mysql_num_rows($res);   
-for($i=0;$i<$row;$i++)           
-{ 
-  if(($i)%2==0)
-    $j=2;
-  else
-    $j=1;
-$dbrow=mysql_fetch_array($res);
-$mid=$dbrow['mid']; 
-$mname=$dbrow['mname']; 
-$price=$dbrow['price']; 
-$qoh=$dbrow['qoh']; 
-  ?>
-<tr class=<?php echo row.$j ?>>
-<td class="action-checkbox"></td>
-<td class="field-name"><?php echo $mid ?></td>
-<td class="field-sex"><?php echo $mname ?></td>
-<td class="field-college"><?php echo $price?>                      </td>
-<td class="field-phone"><?php echo $qoh?></td>
-<?php
-}
-?>
-</tbody>
+<tr>
+<td >库存</td>
+<td ><input required type="text" name="qoh" size="20"/></td>
+</tr>
+
+<table>
+  
+<tr>
+<td><input onclick="judge()" class="btn btn-info"type="submit" name="submit1" value="添加此菜式"/></td>
+<td>&nbsp &nbsp &nbsp &nbsp</td>
+<td><input class="btn btn-info" type="submit" name="submit2" value="修改菜式库存"/></td>
+<td>&nbsp &nbsp &nbsp &nbsp</td>
+<td><input class="btn btn-info" type="submit" name="submit3" value="删除此菜式"/></td>
+</tr>
+
 </table>
-</div>
-      </form>
-    </div>
-  </div>
-    
-    </div>
-    <!-- END Content -->
-      </div>
+
+
+</table>
+</form>
 
 
       
@@ -370,7 +344,7 @@ $qoh=$dbrow['qoh'];
   <footer class="main-footer">
     <!-- To the right -->
     <div class="pull-right hidden-xs">
-      You won't see me :)
+      
     </div>
     <!-- Default to the left -->
     <strong>Copyright &copy; 2017 <a href="#">深大丹丹餐厅</a>.</strong> All rights reserved.
