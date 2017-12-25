@@ -244,17 +244,7 @@ $username= $_POST[username];
         </div>
       </div>
 
-      <!-- search form (Optional) -->
-      <form action="#" method="get" class="sidebar-form">
-        <div class="input-group">
-          <input type="text" name="q" class="form-control" placeholder="Search...">
-              <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                </button>
-              </span>
-        </div>
-      </form>
-      <!-- /.search form -->
+     
 
       <!-- Sidebar Menu -->
       <ul class="sidebar-menu">
@@ -282,7 +272,7 @@ $username= $_POST[username];
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        更改库存
+        查看库存
         <small></small>
       </h1>
       <ol class="breadcrumb">

@@ -452,6 +452,7 @@ $username= $_POST[username];
           </a>
           
         </li>
+        <li ><a href="get_bill.php"><i class="fa fa-link"></i> <span>收入</span></a></li>
       </ul>
       <!-- /.sidebar-menu -->
     </section>

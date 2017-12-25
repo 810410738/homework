@@ -248,17 +248,7 @@ $username= $_POST[username];
         </div>
       </div>
 
-      <!-- search form (Optional) -->
-      <form action="#" method="get" class="sidebar-form">
-        <div class="input-group">
-          <input type="text" name="q" class="form-control" placeholder="Search...">
-              <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                </button>
-              </span>
-        </div>
-      </form>
-      <!-- /.search form -->
+   
 
       <!-- Sidebar Menu -->
       <ul class="sidebar-menu">
@@ -352,7 +342,7 @@ $username= $_POST[username];
         <div class="weui-form-preview__hd">
                 <div class="weui-form-preview__item">
                     <label class="weui-form-preview__label">总收入为</label>
-                    <em class="weui-form-preview__value"><?php echo $s."元"; ?></em>
+                    <em class="weui-form-preview__value" style="color:red"><?php echo $s."元"; ?></em>
                 </div>
             </div>
         </div>
@@ -405,7 +395,7 @@ $username= $_POST[username];
         <div class="weui-form-preview__hd">
                 <div class="weui-form-preview__item">
                     <label class="weui-form-preview__label">总收入为</label>
-                    <em class="weui-form-preview__value"><?php echo $s."元"; ?></em>
+                    <em class="weui-form-preview__value" style="color:red"><?php echo $s."元"; ?></em>
                 </div>
             </div>
         </div>
@@ -464,7 +454,7 @@ $username= $_POST[username];
         <div class="weui-form-preview__hd">
                 <div class="weui-form-preview__item">
                     <label class="weui-form-preview__label">总收入为</label>
-                    <em class="weui-form-preview__value"><?php echo $s."元"; ?></em>
+                    <em class="weui-form-preview__value" style="color:red"><?php echo $s."元"; ?></em>
                 </div>
             </div>
         </div>
