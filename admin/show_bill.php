@@ -1,4 +1,4 @@
-
+a@@ -0,0 +1,365 @@
 <!DOCTYPE html>
 <!--
 This is a starter template page. Use this page to start your new project from
@@ -24,17 +24,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
         apply the skin class to the body tag so the changes take effect.
   -->
   <link rel="stylesheet" href="../../js/vendor/iCheck/square/blue.css">
+  <link rel="stylesheet" type="text/css" href="css/base.css">
 
   <link rel="stylesheet" href="../../css/skin-blue.min.css">
-  <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">  
-   
+  <script type="text/javascript">
+    function judge(){
+      if(){
+        
+      }
+      alert("fuck!");
+    }
+  </script>
 </head>
-<script>
-function warning()
-{
- alert("该桌子已经有客人了，请选择其他桌子，谢谢！"); 
-} 
-</script>
 <?php
 error_reporting(0); 
 header('Content-Type:text/html; charset= utf-8');
@@ -264,15 +265,16 @@ $username= $_POST[username];
         <li class="header">HEADER</li>
         <!-- Optionally, you can add icons to the links -->
         <li ><a href="manage.php"><i class="fa fa-link"></i> <span>查看菜品/库存</span></a></li>
-        <li ><a href="change_menu.php"><i class="fa fa-link"></i> <span>添加新菜品/修改库存</span></a></li>
-        <li class="active">
-          <a href="#"><i class="fa fa-link"></i> <span>餐桌管理</span>
+        <li ><a href="#"><i class="fa fa-link"></i> <span>添加新菜品/修改库存</span></a></li>
+        <li>
+          <a href="change_table.php"><i class="fa fa-link"></i> <span>餐桌管理</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           
         </li>
+         <li class="active"><a href="get_bill.php"><i class="fa fa-link"></i> <span>收入</span></a></li>
       </ul>
       <!-- /.sidebar-menu -->
     </section>
@@ -284,8 +286,8 @@ $username= $_POST[username];
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        管理餐桌
-        <small></small>
+        每桌收入
+        <small>每桌在查询的年月日规模内的收入</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
@@ -298,90 +300,187 @@ $username= $_POST[username];
 
     <div class="row">
       
+      <?php 
+      error_reporting(0); 
+      include ("conn.php");
+      mysql_query("set names utf8");
+      //ÏÈ½ÓÊÕ´«¹ýÀ´µÄÊý¾Ý.
+      $year=$_POST[year];  
+      $month=$_POST[month];  
+      $day=$_POST[day];
 
-      <?php
-error_reporting(0); 
-header('Content-Type:text/html; charset= utf-8');
-include ("conn.php");
-mysql_query("set names utf8");
-?>
-<!-- 查询所有dinner_table信息 -->
-<table class="table">
 
-<?php 
-error_reporting(0); 
-include ("conn.php");
-//mysql_query("set names utf-8");
-// $query = "select * from purchases";    //ÕâÑù¿ÉÄÜÓÐºÜ¶à±êÌâ°üº¬ÓÐÕâËÄ¸ö×ÖµÄÐÂÎÅ¶¼»áÏÔÊ¾³öÀ´. ´ó¼Ò¿ÉÒÔÌí¼Ó¶à¼¸ÌõÐÂÎÅÊÔÊÔ.»¹¿ÉÒÔÓÃOR »òAND ÏÞÖÆ¸ü¶à²éÑ¯Ìõ¼þ.
-$query = "select * from dinner_table";
-$res = mysql_query($query, $conn) or die(mysql_error());
-$row = mysql_num_rows($res);    //Èç¹û²éÑ¯³É¹¦ÕâÀï·µ»ØÕæ·ñÔòÎª¼Ù
-
-//要一行显示3个桌子
-$flag =0;
-for($i=0;$i<$row;$i++)            //ÕâÀïÓÃÒ»¸öFOR Óï¾ä²éÑ¯ÏÔÊ¾¶àÌõ½á¹û
-{ 
-$dbrow=mysql_fetch_array($res);
-$tid=$dbrow['tid']; 
-$tstatus=$dbrow['tstatus'];
-$tsize=$dbrow['tsize'];
-if($flag==0){
-  echo "<tr>";
-}
-$flag++;
-?>
-    <?php 
-    if ($tstatus==1)
-    {
-      echo "
-      <td>
-        <div  class='weui-media-box weui-media-box_appmsg'>
-                    <div class='weui-media-box__hd'>
-                        <img class='weui-media-box__thumb' src='img/".$tsize ."desk.jpg' >
-                    </div>
-                    
-                    <div class='weui-media-box__bd'>
-                        <h4 class='weui-media-box__title'>桌号:" . $tid . "</h4>
-                        <h4 class='weui-media-box__title'>座位数:" . $tsize . "</h4>
-                        <p class='weui-media-box__desc'>空闲</p>
-                    </div>
-                    <div class='weui-media-box__bd'>
-                      <a href='save_table.php?cid=" . $cid  . "&tid=" . $tid . "'> 
-
-                      </a>
-                    </div>
-                </div>
-             </td>
-               ";
-    }
-    else
-    {
-      echo "
-      <td>
-        <div  class='weui-media-box weui-media-box_appmsg'>
-                    <div class='weui-media-box__hd'>
-                        <a href='check_table_orders.php?tid=" . $tid . "'> 
-                        <img onclick='warning() class='weui-media-box__thumb' src='img/".$tsize ."desk_red.jpg' >
-                        </a>
-                    </div>
-                    <div class='weui-media-box__bd'>
-                        <h4 class='weui-media-box__title'>桌号:" . $tid . "</h4>
-                        <h4 class='weui-media-box__title'>座位数:<span>" . $tsize . "</span></h4>
-                        <p class='weui-media-box__desc'>已被占用</p>
-                    </div>
-                </div>
-             </td>
-               ";
-    }
-    if($flag==3){
-      echo "</tr>";
-      $flag=0;
-    }
-}
-?>
-</table>
-
+      if(!empty($year)&&empty($month)&&empty($day))//select by year
+      {
+        ?>
+        <h2>
+          每桌在<?php echo $year ?>年的总收入以及所有桌的总收入
+        </h2>
       
+        <table class="table">
+        
+        <tr>
+        
+        <td>桌号</td>
+        <td>年</td>
+        <td>年收入</td>
+        </tr>
+
+        <?php
+        $query = "select tid ,date_format(btime,'%Y') year ,sum(total_price) sum from bill where date_format(btime,'%Y')=$year group by tid;";
+        $res = mysql_query($query, $conn);
+        $row = mysql_num_rows($res);  
+        $s=0; 
+        for($i=0;$i<$row;$i++)           
+        { 
+            $dbrow=mysql_fetch_array($res);
+            $tid=$dbrow['tid']; 
+            $year=$dbrow['year']; 
+            $sum=$dbrow['sum']; 
+            $s+=$sum;
+            ?>
+            <tbody>
+            <tr>
+            <td ><?php echo $tid ?></td>
+            <td ><?php echo $year ?></td>
+            <td ><?php echo $sum ?></td>
+            </tr></tbody>
+            <?php
+        }
+        ?>
+        </table>
+        <div class="weui-form-preview__hd">
+                <div class="weui-form-preview__item">
+                    <label class="weui-form-preview__label">总收入为</label>
+                    <em class="weui-form-preview__value"><?php echo $s."元"; ?></em>
+                </div>
+            </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        <?php
+      }
+      else if(!empty($year)&&!empty($month)&&empty($day))// by month 
+      {
+        ?>
+        <h2>
+          每桌在<?php echo $year ?>年<?php echo $month ?>月的总收入以及所有桌的总收入
+        </h2>
+        <table class="table">
+        <tr>
+          <td>桌号</td>
+          <td>年</td>
+          <td>月</td>
+          <td>月收入</td>
+        </tr>
+ 
+        <?php
+        $query = "select tid,DATE_FORMAT(btime, '%Y' ) year,DATE_FORMAT(btime, '%m' ) month,sum(total_price) sum  from bill where DATE_FORMAT(btime, '%Y' )=$year and DATE_FORMAT(btime, '%m' )=$month group by tid;";
+        $res = mysql_query($query, $conn);
+        $row = mysql_num_rows($res);   
+        $s=0;
+        for($i=0;$i<$row;$i++)           
+        { 
+            $dbrow=mysql_fetch_array($res);
+            $tid=$dbrow['tid']; 
+            $year=$dbrow['year'];
+            $month=$dbrow['month'];  
+            $sum=$dbrow['sum']; 
+            $s+=$sum;
+            ?>
+            <tbody>
+            <tr>
+            <td class="field-name"><?php echo $tid ?></td>
+            <td class="field-sex"><?php echo $month ?></td>
+            <td class="field-sex"><?php echo $year ?></td>            
+            <td class="field-college"><?php echo $sum ?></td>
+            </tr>
+            </tbody>
+            <?php
+        }
+        ?>
+        </table>
+        <div class="weui-form-preview__hd">
+                <div class="weui-form-preview__item">
+                    <label class="weui-form-preview__label">总收入为</label>
+                    <em class="weui-form-preview__value"><?php echo $s."元"; ?></em>
+                </div>
+            </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        <?php
+
+      }
+      else if(!empty($year)&&!empty($month)&&!empty($day))// by day
+      {
+        ?>
+        <h2>
+          每桌在<?php echo $year ?>年<?php echo $month ?>月<?php echo $day ?>的总收入以及所有桌的总收入
+        </h2>
+       <table class="table">
+        
+        <tr>
+        <td>桌号</td>
+        <td>年</td>
+        <td>月</td>
+        <td>日</td>
+        <td>日收入</td>
+        </tr>
+
+        <?php
+        $query = "select tid,DATE_FORMAT(btime, '%Y' ) year,DATE_FORMAT(btime, '%m' ) month,DATE_FORMAT(btime, '%e' ) day,sum(total_price) sum  from bill where DATE_FORMAT(btime, '%Y' )=$year and DATE_FORMAT(btime, '%m' )=$month and DATE_FORMAT(btime, '%e' )=$day group by tid;";
+        $res = mysql_query($query, $conn);
+        $row = mysql_num_rows($res);   
+        $s=0;
+        for($i=0;$i<$row;$i++)           
+        { 
+            $dbrow=mysql_fetch_array($res);
+            $tid=$dbrow['tid']; 
+            $year=$dbrow['year'];
+            $month=$dbrow['month'];  
+            $day=$dbrow['day'];
+            $sum=$dbrow['sum']; 
+            $s+=$sum;
+            ?>
+            <tbody>
+            <tr>
+            <td class="field-name"><?php echo $tid ?></td>
+            <td class="field-sex"><?php echo $year ?></td>
+            <td class="field-sex"><?php echo $month ?></td>  
+            <td class="field-sex"><?php echo $day ?></td>            
+            <td class="field-college"><?php echo $sum ?></td>
+            </tr>
+            </tbody>
+            <?php
+        }
+        ?>
+
+        </table>
+        <div class="weui-form-preview__hd">
+                <div class="weui-form-preview__item">
+                    <label class="weui-form-preview__label">总收入为</label>
+                    <em class="weui-form-preview__value"><?php echo $s."元"; ?></em>
+                </div>
+            </div>
+        </div>
+
+        </div>
+        </div>
+        </div>
+        </div>
+        <?php
+
+      }
+      ?>
+
+
+
+
     </div>
     </section>
     <!-- /.content -->

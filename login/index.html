@@ -41,7 +41,23 @@
 	<!--[if lt IE 9]>
 	<script src="js/respond.min.js"></script>
 	<![endif]-->
-
+	<script type="text/javascript">
+		function judge() 
+		{ 
+			var phone = document.getElementById('phone').value;
+			var count = document.getElementById('count').value;
+			if(phone.length==0) 
+			{ 
+			alert('手机号码不能为空！');
+			return false; 
+			} 
+			if(phone.length!=11) 
+			{ 
+			alert('请输入有效的手机号码，需是11位！');
+			return false; 
+			} 
+	}
+	</script>
 	</head>
 	<style type="text/css">
 		body{
@@ -62,17 +78,17 @@
 			
 
 			<!-- Start Sign In Form -->
-			<form action="../old/choose_table.php" class="fh5co-form animate-box" data-animate-effect="fadeInRight" style="margin-top:9em" method="POST">
+			<form action="../old/choose_table.php" class="fh5co-form animate-box" data-animate-effect="fadeInRight" style="margin-top:9em" method="POST" onsubmit="return judge()">
 				<h1>欢迎光临本餐厅</h1>
 				<a href="../admin/login.html"><label>是管理员？</label></a>
 				<br>
 				<div class="form-group">
 					<span>用餐人数</span>
-					<input type="number" required class="form-control"  placeholder="请输入用餐人数" autocomplete="off" name="count">
+					<input id="count" type="number" required class="form-control"  placeholder="请输入用餐人数" autocomplete="off" name="count">
 				</div>
 				<div class="form-group">
 					<span>手机号码</span>
-					<input type="text" required  class="form-control"  placeholder="请输入你的手机号码" autocomplete="off" name="phone">
+					<input id="phone" type="text" required  class="form-control"  placeholder="请输入你的手机号码" autocomplete="off" name="phone">
 				</div>
 				<!-- <div class="form-group">
 					<p>Not registered? <a href="sign-up.html">Sign Up</a> | <a href="forgot.html">Forgot Password?</a></p>

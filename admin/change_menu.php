@@ -25,12 +25,192 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="../../js/vendor/iCheck/square/blue.css">
 
   <link rel="stylesheet" href="../../css/skin-blue.min.css">
+  <style type="text/css">
+    .error{
+      color: red;
+    }
+    .success{
+      color: green;
+    }
+  </style>
   <script type="text/javascript">
-    function judge(){
-      if(){
-        
+    function judge1(){
+      var mid = document.getElementById("mid").value;
+      var mname = document.getElementById("mname").value;
+      var price = document.getElementById("price").value;
+      var qoh = document.getElementById("qoh").value;
+      var miderror = document.getElementById("miderror");
+      var nameerror = document.getElementById("nameerror");
+      var priceerror = document.getElementById("priceerror");
+      var qoherror = document.getElementById("qoherror");
+      var flag = true;
+//
+      if(mid.length == 0){
+        miderror.innerHTML="菜式编号不可以为空！";
+        miderror.className="error";
+        flag = false;
       }
-      alert("fuck!");
+      else{
+        miderror.innerHTML="ok";
+        miderror.className="success";
+      }
+//
+      if(mname.length == 0){
+        nameerror.innerHTML="菜名不可以为空！";
+        nameerror.className="error";
+        flag = false;
+      }
+      else{
+        nameerror.innerHTML="ok";
+        nameerror.className="success";
+      }
+//
+       if(price.length == 0){
+        priceerror.innerHTML="价格不可以为空！";
+        priceerror.className="error";
+        flag = false;
+      }
+      else{
+          var reg = /^[0-9]+$/; 
+          if(!reg.test(price)){ 
+            priceerror.innerHTML="价格只能输入数字!";
+            priceerror.className="error";
+            flag = false;
+          }
+          else{
+             priceerror.innerHTML="ok";
+             priceerror.className="success";
+          }
+      }
+// 
+       if(qoh.length == 0){
+        qoherror.innerHTML="库存不可以为空！";
+        qoherror.className="error";
+        flag = false;
+      }
+      else{
+          var reg = /^[0-9]+$/; 
+          if(!reg.test(qoh)){ 
+            qoherror.innerHTML="库存只能输入数字!"; 
+            qoherror.className="error";
+            flag = false;
+          }
+           else{
+            qoherror.innerHTML="ok";
+            qoherror.className="success";
+          }
+      }
+
+      return flag;
+      
+    }
+    function judge2(){
+      var mid = document.getElementById("mid").value;
+      var mname = document.getElementById("mname").value;
+      var price = document.getElementById("price").value;
+      var qoh = document.getElementById("qoh").value;
+      var miderror = document.getElementById("miderror");
+      var nameerror = document.getElementById("nameerror");
+      var priceerror = document.getElementById("priceerror");
+      var qoherror = document.getElementById("qoherror");
+      var flag = true;
+//
+      if(mid.length == 0){
+        miderror.innerHTML="菜式编号不可以为空！";
+        miderror.className="error";
+        flag = false;
+      }
+      else{
+        miderror.innerHTML="ok";
+        miderror.className="success";
+      }
+//
+
+      
+// 
+       if(qoh.length == 0){
+        qoherror.innerHTML="库存不可以为空！";
+        qoherror.className="error";
+        flag = false;
+      }
+      else{
+          var reg = /^[0-9]+$/; 
+          if(!reg.test(qoh)){ 
+            qoherror.innerHTML="库存只能输入数字!"; 
+            qoherror.className="error";
+            flag = false;
+          }
+           else{
+            qoherror.innerHTML="ok";
+            qoherror.className="success";
+          }
+      }
+
+      return flag;
+    }
+    function judge3(){
+      var mid = document.getElementById("mid").value;
+      var mname = document.getElementById("mname").value;
+      var price = document.getElementById("price").value;
+      var qoh = document.getElementById("qoh").value;
+      var miderror = document.getElementById("miderror");
+      var flag = true;
+//
+      if(mid.length == 0){
+        miderror.innerHTML="菜式编号不可以为空！";
+        miderror.className="error";
+        flag = false;
+      }
+      else{
+        miderror.innerHTML="ok";
+        miderror.className="success";
+      }
+      return flag;
+    }
+
+      function judge4(){
+      var mid = document.getElementById("mid").value;
+      var mname = document.getElementById("mname").value;
+      var price = document.getElementById("price").value;
+      var qoh = document.getElementById("qoh").value;
+      var miderror = document.getElementById("miderror");
+      var nameerror = document.getElementById("nameerror");
+      var priceerror = document.getElementById("priceerror");
+      var qoherror = document.getElementById("qoherror");
+      var flag = true;
+//
+      if(mid.length == 0){
+        miderror.innerHTML="菜式编号不可以为空！";
+        miderror.className="error";
+        flag = false;
+      }
+      else{
+        miderror.innerHTML="ok";
+        miderror.className="success";
+      }
+
+//
+       if(price.length == 0){
+        priceerror.innerHTML="价格不可以为空！";
+        priceerror.className="error";
+        flag = false;
+      }
+      else{
+          var reg = /^[0-9]+$/; 
+          if(!reg.test(price)){ 
+            priceerror.innerHTML="价格只能输入数字!";
+            priceerror.className="error";
+            flag = false;
+          }
+          else{
+             priceerror.innerHTML="ok";
+             priceerror.className="success";
+          }
+      }
+// 
+
+      return flag;
+      
     }
   </script>
 </head>
@@ -298,32 +478,38 @@ $username= $_POST[username];
 <table  class="table">
 <tr>
 <td >菜式编号</td>
-<td ><input  required type="text" name="mid" size="20"/></td>
+<td ><input  id="mid" type="text" name="mid" size="20"/></td>
+<td ><span class="error" id="miderror"></span></td>
 </tr>
 
 <tr>
 <td >菜名</td>
-<td ><input required type="text" name="mname" size="20"/></td>
+<td ><input  id="mname" type="text" name="mname" size="20"/></td>
+<td ><span class="error" id="nameerror"></span></td>
 </tr>
 
 <tr>
 <td >价格</td>
-<td ><input required type="text" name="price" size="20"/></td>
+<td ><input id="price" type="text" name="price" size="20"/></td>
+<td ><span class="error" id="priceerror"></span></td>
 </tr>
 
 <tr>
 <td >库存</td>
-<td ><input required type="text" name="qoh" size="20"/></td>
+<td ><input id="qoh" type="text" name="qoh" size="20"/></td>
+<td ><span class="error" id="qoherror"></span></td>
 </tr>
 
 <table>
   
 <tr>
-<td><input onclick="judge()" class="btn btn-info"type="submit" name="submit1" value="添加此菜式"/></td>
+<td><input id="input1"  onclick="return judge1()" class="btn btn-info"type="submit" name="submit1" value="添加此菜式"/></td>
 <td>&nbsp &nbsp &nbsp &nbsp</td>
-<td><input class="btn btn-info" type="submit" name="submit2" value="修改菜式库存"/></td>
+<td><input  id="input2" onclick="return judge2()" class="btn btn-info" type="submit" name="submit2" value="修改菜式库存"/></td>
 <td>&nbsp &nbsp &nbsp &nbsp</td>
-<td><input class="btn btn-info" type="submit" name="submit3" value="删除此菜式"/></td>
+<td><input  id="input4" onclick="return judge4()"  class="btn btn-info" type="submit" name="submit4" value="修改菜式价格"/></td>
+<td>&nbsp &nbsp &nbsp &nbsp</td>
+<td><input  id="input3" onclick="return judge3()"  class="btn btn-info" type="submit" name="submit3" value="删除此菜式"/></td>
 </tr>
 
 </table>

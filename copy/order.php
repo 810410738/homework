@@ -26,7 +26,7 @@ $tid=$_POST[tid];
 $cid=$_POST[cid];
 ?>
 
-<form action="pay.php" method="POST">
+<form action="pay1.php" method="POST">
 <input name="tid" type="hidden" value=<?php echo $tid; ?> />
 <input name="cid" type="hidden" value=<?php echo $cid; ?> />
 <?php
@@ -68,7 +68,7 @@ for($i=0;$i<$row;$i++)
 	<tr>
 	<td>
 
-	<a href="index.php?tid=$tid&cid=$cid" >
+	<a href=<?php echo "index.php?tid=". $tid . "&cid=" . $cid; ?>   >
 		<botton class="btn btn-info" name="submit1">修改订单</botton>
 		
 	</a>

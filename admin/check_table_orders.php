@@ -1,4 +1,4 @@
-
+a@@ -0,0 +1,365 @@
 <!DOCTYPE html>
 <!--
 This is a starter template page. Use this page to start your new project from
@@ -266,13 +266,8 @@ $username= $_POST[username];
         <li ><a href="manage.php"><i class="fa fa-link"></i> <span>查看菜品/库存</span></a></li>
         <li ><a href="change_menu.php"><i class="fa fa-link"></i> <span>添加新菜品/修改库存</span></a></li>
         <li class="active">
-          <a href="#"><i class="fa fa-link"></i> <span>餐桌管理</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          
-        </li>
+          <a href="change_table.php"><i class="fa fa-link"></i> <span>餐桌管理</span></a></li>
+        <li ><a href="get_bill.php"><i class="fa fa-link"></i> <span>收入</span></a></li>
       </ul>
       <!-- /.sidebar-menu -->
     </section>
@@ -299,89 +294,62 @@ $username= $_POST[username];
     <div class="row">
       
 
-      <?php
-error_reporting(0); 
-header('Content-Type:text/html; charset= utf-8');
-include ("conn.php");
-mysql_query("set names utf8");
-?>
-<!-- 查询所有dinner_table信息 -->
-<table class="table">
-
+     <table class="table">
+    <td>桌号</td>
+    <td>菜名</td>
+    <td>数量</td>
+    <td>价格</td>
 <?php 
 error_reporting(0); 
 include ("conn.php");
-//mysql_query("set names utf-8");
-// $query = "select * from purchases";    //ÕâÑù¿ÉÄÜÓÐºÜ¶à±êÌâ°üº¬ÓÐÕâËÄ¸ö×ÖµÄÐÂÎÅ¶¼»áÏÔÊ¾³öÀ´. ´ó¼Ò¿ÉÒÔÌí¼Ó¶à¼¸ÌõÐÂÎÅÊÔÊÔ.»¹¿ÉÒÔÓÃOR »òAND ÏÞÖÆ¸ü¶à²éÑ¯Ìõ¼þ.
-$query = "select * from dinner_table";
-$res = mysql_query($query, $conn) or die(mysql_error());
-$row = mysql_num_rows($res);    //Èç¹û²éÑ¯³É¹¦ÕâÀï·µ»ØÕæ·ñÔòÎª¼Ù
+mysql_query("set names utf8");
+//ÏÈ½ÓÊÕ´«¹ýÀ´µÄÊý¾Ý.
+$tid=$_GET[tid];
 
-//要一行显示3个桌子
-$flag =0;
-for($i=0;$i<$row;$i++)            //ÕâÀïÓÃÒ»¸öFOR Óï¾ä²éÑ¯ÏÔÊ¾¶àÌõ½á¹û
-{ 
-$dbrow=mysql_fetch_array($res);
-$tid=$dbrow['tid']; 
-$tstatus=$dbrow['tstatus'];
-$tsize=$dbrow['tsize'];
-if($flag==0){
-  echo "<tr>";
-}
-$flag++;
-?>
-    <?php 
-    if ($tstatus==1)
-    {
-      echo "
-      <td>
-        <div  class='weui-media-box weui-media-box_appmsg'>
-                    <div class='weui-media-box__hd'>
-                        <img class='weui-media-box__thumb' src='img/".$tsize ."desk.jpg' >
-                    </div>
-                    
-                    <div class='weui-media-box__bd'>
-                        <h4 class='weui-media-box__title'>桌号:" . $tid . "</h4>
-                        <h4 class='weui-media-box__title'>座位数:" . $tsize . "</h4>
-                        <p class='weui-media-box__desc'>空闲</p>
-                    </div>
-                    <div class='weui-media-box__bd'>
-                      <a href='save_table.php?cid=" . $cid  . "&tid=" . $tid . "'> 
+$query = "SELECT mname,quantity,mprice from orders o,menu m where o.tid='$tid' and m.mid=o.mid; ";
+$res = mysql_query($query,$conn) or die(mysql_error());
+$row = mysql_num_rows($res); 
+$sum=0;
+for($i=0;$i<$row;$i++)
+{
+  $dbrow=mysql_fetch_array($res);
+  $mname=$dbrow['mname'];
+  $quantity=$dbrow['quantity'];
+  $mprice=$dbrow['mprice'];
 
-                      </a>
-                    </div>
-                </div>
-             </td>
-               ";
-    }
-    else
-    {
-      echo "
-      <td>
-        <div  class='weui-media-box weui-media-box_appmsg'>
-                    <div class='weui-media-box__hd'>
-                        <a href='check_table_orders.php?tid=" . $tid . "'> 
-                        <img onclick='warning() class='weui-media-box__thumb' src='img/".$tsize ."desk_red.jpg' >
-                        </a>
-                    </div>
-                    <div class='weui-media-box__bd'>
-                        <h4 class='weui-media-box__title'>桌号:" . $tid . "</h4>
-                        <h4 class='weui-media-box__title'>座位数:<span>" . $tsize . "</span></h4>
-                        <p class='weui-media-box__desc'>已被占用</p>
-                    </div>
-                </div>
-             </td>
-               ";
-    }
-    if($flag==3){
-      echo "</tr>";
-      $flag=0;
-    }
-}
-?>
-</table>
+  $sum+=$mprice;
+
+  ?>
+  <tr>
+
+      <td><?php echo $tid; ?></td>
+      
+      <td><?php echo $mname; ?></td>
+      
+      <td><?php echo $quantity; ?></td>
+
+      <td><?php echo $mprice; ?></td>
 
       
+  </tr>
+    
+  
+  <?php  
+}
+
+
+
+  ?>
+
+
+  </table>
+      <div class="weui-form-preview__hd">
+                <div class="weui-form-preview__item">
+                    <label class="weui-form-preview__label">该桌应付</label>
+                    <em class="weui-form-preview__value"><?php echo $sum."元"; ?></em>
+                </div>
+            </div>
+
     </div>
     </section>
     <!-- /.content -->

@@ -15,9 +15,22 @@ function warning()
 {
  alert("该桌子已经有客人了，请选择其他桌子，谢谢！"); 
 } 
+function judge(cnum,size)
+{
+    if(cnum>size){
+        alert("该桌子只能坐"+size+"个人，请选其他桌"); 
+        return false;
+    }
+    else{
+        alert("选桌成功！"); 
+        return true;
+    }
+}
 </script>
 <body>
-//插入customer表
+<header>
+    <h1>请选择桌子</h1>
+</header>
 <?php
 error_reporting(0); 
 header('Content-Type:text/html; charset= utf-8');
@@ -34,11 +47,11 @@ VALUES('$cnum','$cphone')";
 $result = mysql_query($sql,$conn) or die(mysql_error());  //
 if($result)
 {
-echo "success insert !";
 // 查询customer表里当前的cid
 $query = "SELECT cid from customer where cnum=$cnum and cphone=$cphone";
 $res = mysql_query($query,$conn) or die(mysql_error());
 $cid = mysql_fetch_array($res)['cid'];
+echo $cid."people";
 }
 else
 {
@@ -78,11 +91,12 @@ $flag++;
 			<td><a href='../copy/index.php?cid=" . $cid  . "&tid=" . $tid . "'> 
 				<div  class='weui-media-box weui-media-box_appmsg'>
                     <div class='weui-media-box__hd'>
-                        <img class='weui-media-box__thumb' src='img/desk.jpg' >
+                        <img onclick='return judge(".$cnum.",".$tsize.")' class='weui-media-box__thumb' src='img/".$tsize ."desk.jpg' >
                     </div>
                     </a>
                     <div class='weui-media-box__bd'>
-                        <h4 class='weui-media-box__title'>座位数:" . $tsize . "</h4>
+                        <h4 class='weui-media-box__title'>桌号:" . $tid . "</h4>
+                        <h4 id='".$tsize."size' class='weui-media-box__title'>座位数:" . $tsize . "</h4>
                         <p class='weui-media-box__desc'>空闲</p>
                     </div>
                 </div>
@@ -95,9 +109,10 @@ $flag++;
 			<td>
 				<div  class='weui-media-box weui-media-box_appmsg'>
                     <div class='weui-media-box__hd'>
-                        <img onclick='warning() class='weui-media-box__thumb' src='img/desk_red.jpg' >
+                        <img onclick='warning()' class='weui-media-box__thumb' src='img/".$tsize ."desk_red.jpg' >
                     </div>
                     <div class='weui-media-box__bd'>
+                        <h4 class='weui-media-box__title'>桌号:" . $tid . "</h4>
                         <h4 class='weui-media-box__title'>座位数:<span>" . $tsize . "</span></h4>
                         <p class='weui-media-box__desc'>已被占用</p>
                     </div>

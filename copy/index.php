@@ -136,6 +136,7 @@ $price=$dbrow['price'];
 			                <div class="d-stock ">
 					                <a class="decrease">-</a>
 					                <input id="num" readonly="" class="text_box" name=<?php echo $flag."quantity"; ?> type="text" value="0">
+
 					                <a class="increase">+</a>
 			                </div>
 		                </div> 
@@ -258,7 +259,7 @@ $flag++;
 	    <!--底部-->
  <div style="height: 100px;"></div>
  <div class="fix-bot">
-	   	  <a href="" class="list-js">合计：<i>0元</i><em>(0份)</em></a>
+	   	  <a href="" class="list-js">合计：<i id="sum_price">0</i><i>元</i><em>(</em><em id="count">0</em><em>份)</em></a>
 	   	  <input type="submit"  class="list-jsk" value="选好了"/>
  </div>
  </form>

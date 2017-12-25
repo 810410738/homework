@@ -93,7 +93,7 @@ $query = "SELECT cid from dinner_table where tid='$tid'";
 $res = mysql_query($query, $conn) or die(mysql_error());
 $cid=mysql_fetch_array($res)['cid'];
 // insert bill
-$query = "INSERT INTO bill(cid,tid,total_price) VALUES($cid,'$tid',$sum)";
+$query = "INSERT INTO bill(cid,tid,total_price,btime) VALUES($cid,'$tid',$sum,sysdate())";
 $res = mysql_query($query, $conn) or die(mysql_error());
 
 $query = "update dinner_table set tstatus=1 where tid='$tid';";

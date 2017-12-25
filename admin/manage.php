@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <!--
 This is a starter template page. Use this page to start your new project from
@@ -12,13 +13,22 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
   <link rel="stylesheet" href="../../css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="css/base.css">
-<link rel="stylesheet" type="text/css" href="css/changelists.css">
- 
+  <!-- Font Awesome -->
+  <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">-->
+  <!-- Ionicons -->
+  <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">-->
+  <!-- Theme style -->
   <link rel="stylesheet" href="../../css/AdminLTE.min.css">
+  <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
+        page. However, you can choose any other skin. Make sure you
+        apply the skin class to the body tag so the changes take effect.
+  -->
   <link rel="stylesheet" href="../../js/vendor/iCheck/square/blue.css">
 
   <link rel="stylesheet" href="../../css/skin-blue.min.css">
+
+    <link rel="stylesheet" type="text/css" href="css/base.css">
+<link rel="stylesheet" type="text/css" href="css/changelists.css">
 
 </head>
 
@@ -251,7 +261,7 @@ $username= $_POST[username];
         <li class="header">HEADER</li>
         <!-- Optionally, you can add icons to the links -->
         <li class="active"><a href="manage.php"><i class="fa fa-link"></i> <span>查看菜品/库存</span></a></li>
-        <li ><a href="change_table.php"><i class="fa fa-link"></i> <span>添加新菜品/修改库存</span></a></li>
+        <li ><a href="change_menu.php"><i class="fa fa-link"></i> <span>添加新菜品/修改库存</span></a></li>
         <li>
           <a href="change_table.php"><i class="fa fa-link"></i> <span>餐桌管理</span>
             <span class="pull-right-container">
@@ -260,6 +270,7 @@ $username= $_POST[username];
           </a>
           
         </li>
+         <li ><a href="get_bill.php"><i class="fa fa-link"></i> <span>收入</span></a></li>
       </ul>
       <!-- /.sidebar-menu -->
     </section>

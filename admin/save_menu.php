@@ -344,6 +344,32 @@ $username= $_POST[username];
         <?php
         }
     }
+    else if(!empty($_POST[submit4]))//修改菜式价格
+    {
+        $sql = "select * from menu where mid='$mid' ; ";
+        $result = @mysql_query($sql,$conn);  
+        $row = mysql_num_rows($result); 
+        if($row>0)
+        {
+        $sql = "update menu set price='$price' where mid='$mid' ;";
+        $result = @mysql_query($sql,$conn);  
+        ?>
+        <h1>
+        修改价格成功
+        <small></small>
+        </h1>
+        <?php
+        }
+        else
+        {
+           ?>
+         <h1>
+        不存在该菜式！
+        <small></small>
+        </h1>
+        <?php
+        }
+    }
     else if(!empty($_POST[submit3]))
     {
         $sql = "select * from menu where mid='$mid' ; ";

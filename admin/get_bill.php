@@ -1,4 +1,4 @@
-
+a@@ -0,0 +1,365 @@
 <!DOCTYPE html>
 <!--
 This is a starter template page. Use this page to start your new project from
@@ -26,15 +26,36 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="../../js/vendor/iCheck/square/blue.css">
 
   <link rel="stylesheet" href="../../css/skin-blue.min.css">
-  <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">  
-   
+  <script type="text/javascript">
+    function judge(){
+      var year = document.getElementById('year').value;
+      var month = document.getElementById('month').value;
+      var day = document.getElementById('day').value;
+      var reg = /^[0-9]+$/; 
+      if(year.length==0&&month.length==0&&day.length==0){
+         alert("请输入你要查询的内容！");
+            return false;
+      }
+       // if(!reg.test(year)|| !reg.test(month)|| !reg.test(day)){ 
+       //      alert("日期必须为数字！");
+       //      return false;
+       //    }
+      if(day.length!=0){
+        if(month.length==0||year.length==0){
+          alert("年份和月份都不可为空！");
+            return false;
+        }
+      }
+      if(month.length!=0){
+          if(year.length==0){
+            alert("年份不可为空！");
+            return false;
+          }
+      }
+      return true;
+    }
+  </script>
 </head>
-<script>
-function warning()
-{
- alert("该桌子已经有客人了，请选择其他桌子，谢谢！"); 
-} 
-</script>
 <?php
 error_reporting(0); 
 header('Content-Type:text/html; charset= utf-8');
@@ -264,15 +285,16 @@ $username= $_POST[username];
         <li class="header">HEADER</li>
         <!-- Optionally, you can add icons to the links -->
         <li ><a href="manage.php"><i class="fa fa-link"></i> <span>查看菜品/库存</span></a></li>
-        <li ><a href="change_menu.php"><i class="fa fa-link"></i> <span>添加新菜品/修改库存</span></a></li>
-        <li class="active">
-          <a href="#"><i class="fa fa-link"></i> <span>餐桌管理</span>
+        <li ><a href="#"><i class="fa fa-link"></i> <span>添加新菜品/修改库存</span></a></li>
+        <li>
+          <a href="change_table.php"><i class="fa fa-link"></i> <span>餐桌管理</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           
         </li>
+         <li class="active"><a href="get_bill.php"><i class="fa fa-link"></i> <span>收入</span></a></li>
       </ul>
       <!-- /.sidebar-menu -->
     </section>
@@ -284,8 +306,8 @@ $username= $_POST[username];
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        管理餐桌
-        <small></small>
+        请输入查看收入日期
+        <small>可按年月日进行不同规模的查看</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
@@ -298,90 +320,16 @@ $username= $_POST[username];
 
     <div class="row">
       
+    <form action="show_bill.php" method="POST" onsubmit="return judge()">
 
-      <?php
-error_reporting(0); 
-header('Content-Type:text/html; charset= utf-8');
-include ("conn.php");
-mysql_query("set names utf8");
-?>
-<!-- 查询所有dinner_table信息 -->
-<table class="table">
+    <input name="year" id="year"  type="text" placeholder="年" value="" />
+    <input name="month" id="month" type="text" placeholder="月" value="" />
 
-<?php 
-error_reporting(0); 
-include ("conn.php");
-//mysql_query("set names utf-8");
-// $query = "select * from purchases";    //ÕâÑù¿ÉÄÜÓÐºÜ¶à±êÌâ°üº¬ÓÐÕâËÄ¸ö×ÖµÄÐÂÎÅ¶¼»áÏÔÊ¾³öÀ´. ´ó¼Ò¿ÉÒÔÌí¼Ó¶à¼¸ÌõÐÂÎÅÊÔÊÔ.»¹¿ÉÒÔÓÃOR »òAND ÏÞÖÆ¸ü¶à²éÑ¯Ìõ¼þ.
-$query = "select * from dinner_table";
-$res = mysql_query($query, $conn) or die(mysql_error());
-$row = mysql_num_rows($res);    //Èç¹û²éÑ¯³É¹¦ÕâÀï·µ»ØÕæ·ñÔòÎª¼Ù
+    <input name="day" id="day" type="text" placeholder="日" value="" />
 
-//要一行显示3个桌子
-$flag =0;
-for($i=0;$i<$row;$i++)            //ÕâÀïÓÃÒ»¸öFOR Óï¾ä²éÑ¯ÏÔÊ¾¶àÌõ½á¹û
-{ 
-$dbrow=mysql_fetch_array($res);
-$tid=$dbrow['tid']; 
-$tstatus=$dbrow['tstatus'];
-$tsize=$dbrow['tsize'];
-if($flag==0){
-  echo "<tr>";
-}
-$flag++;
-?>
-    <?php 
-    if ($tstatus==1)
-    {
-      echo "
-      <td>
-        <div  class='weui-media-box weui-media-box_appmsg'>
-                    <div class='weui-media-box__hd'>
-                        <img class='weui-media-box__thumb' src='img/".$tsize ."desk.jpg' >
-                    </div>
-                    
-                    <div class='weui-media-box__bd'>
-                        <h4 class='weui-media-box__title'>桌号:" . $tid . "</h4>
-                        <h4 class='weui-media-box__title'>座位数:" . $tsize . "</h4>
-                        <p class='weui-media-box__desc'>空闲</p>
-                    </div>
-                    <div class='weui-media-box__bd'>
-                      <a href='save_table.php?cid=" . $cid  . "&tid=" . $tid . "'> 
+    <input class="btn btn-info" type="submit" name="submit1" value="确认查询" />
 
-                      </a>
-                    </div>
-                </div>
-             </td>
-               ";
-    }
-    else
-    {
-      echo "
-      <td>
-        <div  class='weui-media-box weui-media-box_appmsg'>
-                    <div class='weui-media-box__hd'>
-                        <a href='check_table_orders.php?tid=" . $tid . "'> 
-                        <img onclick='warning() class='weui-media-box__thumb' src='img/".$tsize ."desk_red.jpg' >
-                        </a>
-                    </div>
-                    <div class='weui-media-box__bd'>
-                        <h4 class='weui-media-box__title'>桌号:" . $tid . "</h4>
-                        <h4 class='weui-media-box__title'>座位数:<span>" . $tsize . "</span></h4>
-                        <p class='weui-media-box__desc'>已被占用</p>
-                    </div>
-                </div>
-             </td>
-               ";
-    }
-    if($flag==3){
-      echo "</tr>";
-      $flag=0;
-    }
-}
-?>
-</table>
-
-      
+    </form>
     </div>
     </section>
     <!-- /.content -->
