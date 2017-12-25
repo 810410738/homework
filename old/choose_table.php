@@ -39,23 +39,27 @@ mysql_query("set names utf8");
 
 $cnum=$_POST[count];  
 $cphone=$_POST[phone];  
-
-$sql = "INSERT INTO customer(cnum,cphone)
-
-VALUES('$cnum','$cphone')";
-
-$result = mysql_query($sql,$conn) or die(mysql_error());  //
-if($result)
-{
-// 查询customer表里当前的cid
-$query = "SELECT cid from customer where cnum=$cnum and cphone=$cphone";
+//先根据手机号码找用户
+$query = "select cid from customer where cphone='$cphone';";
 $res = mysql_query($query,$conn) or die(mysql_error());
-$cid = mysql_fetch_array($res)['cid'];
-echo $cid."people";
+$row = mysql_num_rows($res);
+if($row==0){//不存在该用户
+
+    $sql = "INSERT INTO customer(cnum,cphone,jifen)
+    VALUES('$cnum','$cphone',0)";
+    $result = mysql_query($sql,$conn) or die(mysql_error());  //
+        if($result)
+        {
+        // 查询customer表里当前的cid
+        $query = "SELECT cid from customer where cnum=$cnum and cphone='$cphone';";
+        $res = mysql_query($query,$conn) or die(mysql_error());
+        $cid = mysql_fetch_array($res)['cid'];
+        }
 }
-else
-{
-echo "insert fail !";
+else{
+    $cid = mysql_fetch_array($res)['cid'];
+    $query = "update customer set cnum=$cnum where cid=$cid;";
+$res = mysql_query($query,$conn) or die(mysql_error());
 }
 ?>
 
