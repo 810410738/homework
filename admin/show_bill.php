@@ -312,12 +312,13 @@ $username= $_POST[username];
         <tr>
         
         <td>桌号</td>
+        <td>桌子大小</td>
         <td>年</td>
         <td>年收入</td>
         </tr>
 
         <?php
-        $query = "select tid ,date_format(btime,'%Y') year ,sum(total_price) sum from bill where date_format(btime,'%Y')=$year group by tid;";
+        $query = "select bill.tid,dinner_table.tsize,date_format(bill.btime,'%Y') year ,sum(bill.total_price) sum from bill, dinner_table where date_format(bill.btime,'%Y')=$year  and dinner_table.tid=bill.tid group by bill.tid;";
         $res = mysql_query($query, $conn);
         $row = mysql_num_rows($res);  
         $s=0; 
@@ -325,6 +326,7 @@ $username= $_POST[username];
         { 
             $dbrow=mysql_fetch_array($res);
             $tid=$dbrow['tid']; 
+            $tsize=$dbrow['tsize'];
             $year=$dbrow['year']; 
             $sum=$dbrow['sum']; 
             $s+=$sum;
@@ -332,6 +334,7 @@ $username= $_POST[username];
             <tbody>
             <tr>
             <td ><?php echo $tid ?></td>
+            <td ><?php echo $tsize ?></td>
             <td ><?php echo $year ?></td>
             <td ><?php echo $sum ?></td>
             </tr></tbody>
@@ -361,13 +364,14 @@ $username= $_POST[username];
         <table class="table">
         <tr>
           <td>桌号</td>
+          <td>桌子大小</td>
           <td>年</td>
           <td>月</td>
           <td>月收入</td>
         </tr>
  
         <?php
-        $query = "select tid,DATE_FORMAT(btime, '%Y' ) year,DATE_FORMAT(btime, '%m' ) month,sum(total_price) sum  from bill where DATE_FORMAT(btime, '%Y' )=$year and DATE_FORMAT(btime, '%m' )=$month group by tid;";
+         $query = "select bill.tid,dinner_table.tsize,date_format(bill.btime,'%Y') year ,DATE_FORMAT(bill.btime, '%m' ) month,sum(bill.total_price) sum from bill, dinner_table where date_format(bill.btime,'%Y')=$year  and dinner_table.tid=bill.tid group by bill.tid;";
         $res = mysql_query($query, $conn);
         $row = mysql_num_rows($res);   
         $s=0;
@@ -375,6 +379,7 @@ $username= $_POST[username];
         { 
             $dbrow=mysql_fetch_array($res);
             $tid=$dbrow['tid']; 
+            $tsize=$dbrow['tsize'];
             $year=$dbrow['year'];
             $month=$dbrow['month'];  
             $sum=$dbrow['sum']; 
@@ -383,6 +388,7 @@ $username= $_POST[username];
             <tbody>
             <tr>
             <td class="field-name"><?php echo $tid ?></td>
+            <td class="field-name"><?php echo $tsize ?></td>
             <td class="field-sex"><?php echo $month ?></td>
             <td class="field-sex"><?php echo $year ?></td>            
             <td class="field-college"><?php echo $sum ?></td>
